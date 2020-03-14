@@ -5,8 +5,12 @@ export default function HomeScreen({ navigation }) {
   return (
     <View>
       <Button
-        title="Go to Jane's profile"
-        onPress={() => navigation.navigate("Profile", { name: "Jane" })}
+        title="Create a Payment"
+        onPress={() => navigation.navigate("PaymentScreen")}
+      />
+      <Button
+        title="Make a Payment"
+        onPress={() => navigation.navigate("ScanPaymentScreen")}
       />
     </View>
   );
