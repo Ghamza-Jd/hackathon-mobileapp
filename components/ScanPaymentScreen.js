@@ -20,7 +20,6 @@ export default function ScanPaymentScreen() {
   const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
     const parsedData = data.split("_");
-    console.log(parsedData);
     fetch("https://areeba-hackathon.herokuapp.com/api/transactions", {
       method: "POST",
       headers: {
@@ -37,6 +36,7 @@ export default function ScanPaymentScreen() {
       .catch(err => {
         if (err) throw err;
       });
+    console.log("Not here");
   };
 
   if (hasPermission === null) {

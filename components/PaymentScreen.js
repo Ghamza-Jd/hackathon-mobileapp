@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import QRCode from "./qrcode/QRCode";
 
-export default function PaymentScreen({ navigation }) {
+export default function PaymentScreen() {
   const [modal, setModal] = useState(false);
   const [paymentValue, setPaymentValue] = useState(0);
   const [username, setUsername] = useState("");

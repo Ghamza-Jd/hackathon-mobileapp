@@ -8,7 +8,7 @@ import {
   AsyncStorage
 } from "react-native";
 
-export default function CardInfoScreen({ navigation }) {
+export default function CardInfoScreen() {
   const [cardnb, setCardnb] = useState("");
   const [cardname, setCardName] = useState("");
   const [cardcvv, setCardcvv] = useState("");
