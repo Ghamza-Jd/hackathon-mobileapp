@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Button, TextInput, ScrollView, Text } from "react-native";
+import {
+  View,
+  Button,
+  TextInput,
+  ScrollView,
+  Text,
+  AsyncStorage
+} from "react-native";
 
 export default function CardInfoScreen({ navigation }) {
   const [cardnb, setCardnb] = useState("");
@@ -29,4 +36,10 @@ export default function CardInfoScreen({ navigation }) {
   );
 }
 
-const setCardInfo = (nb, name, cvv, month, year) => {};
+const setCardInfo = (nb, name, cvv, month, year) => {
+  AsyncStorage.setItem("cardnb", nb);
+  AsyncStorage.setItem("cardname", name);
+  AsyncStorage.setItem("cvv", cvv);
+  AsyncStorage.setItem("cardExMonth", month);
+  AsyncStorage.setItem("cardExYear", year);
+};
