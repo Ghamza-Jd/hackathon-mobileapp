@@ -51,6 +51,7 @@ const submit = (navigation, username, password) => {
         alert(resJson.msg);
         return;
       }
+      AsyncStorage.setItem("username", username);
       AsyncStorage.setItem("token", resJson.access_token);
       AsyncStorage.setItem("type", resJson.token_type);
     })

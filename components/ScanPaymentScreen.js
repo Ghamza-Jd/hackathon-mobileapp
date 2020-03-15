@@ -1,30 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button } from "react-native";
+import { Text, View, StyleSheet, Button, AsyncStorage } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 
 export default function ScanPaymentScreen() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
       setHasPermission(status === "granted");
     })();
+    AsyncStorage.getItem("username", (err, res) => {
+      if (!err) setUsername(res);
+    });
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
+  const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
-    fetch("https://areeba-hackathon.herokuapp.com/", {
+    const parsedData = data.split("_");
+    console.log(parsedData);
+    fetch("https://areeba-hackathon.herokuapp.com/api/transactions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        data: data
+        buyer: username,
+        seller: parsedData[0],
+        price: parsedData[1]
       })
     })
-      .then(res => console.log(res))
+      .then(res => res.json())
+      .then(resJson => console.log(resJson))
       .catch(err => {
         if (err) throw err;
       });

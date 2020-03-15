@@ -13,16 +13,11 @@ import QRCode from "./qrcode/QRCode";
 export default function PaymentScreen({ navigation }) {
   const [modal, setModal] = useState(false);
   const [paymentValue, setPaymentValue] = useState(0);
-  const [acessToken, setAccessToken] = useState("");
-  const [tokenType, setTokenType] = useState("");
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
-    AsyncStorage.getItem("token", (err, res) => {
-      if (!err) setAccessToken(res);
-    });
-
-    AsyncStorage.getItem("type", (err, res) => {
-      if (!err) setTokenType(res);
+    AsyncStorage.getItem("username", (err, res) => {
+      if (!err) setUsername(res);
     });
   });
 
@@ -31,7 +26,7 @@ export default function PaymentScreen({ navigation }) {
       <Modal visible={modal} animationType="slide">
         <View style={styles.container}>
           <QRCode
-            value={paymentValue}
+            value={username + "_" + paymentValue}
             size={300}
             bgColor="purple"
             fgColor="white"

@@ -31,6 +31,7 @@ export default function CardInfoScreen({ navigation }) {
         onPress={() =>
           setCardInfo(cardnb, cardname, cardcvv, cardExMonth, cardExYear)
         }
+        title="update"
       />
     </ScrollView>
   );
@@ -42,4 +43,5 @@ const setCardInfo = (nb, name, cvv, month, year) => {
   AsyncStorage.setItem("cvv", cvv);
   AsyncStorage.setItem("cardExMonth", month);
   AsyncStorage.setItem("cardExYear", year);
+  AsyncStorage.setItem("cardinfo", true);
 };
