@@ -6,11 +6,15 @@ export default function HomeScreen({ navigation }) {
     <View>
       <Button
         title="Create a Payment"
-        onPress={() => navigation.navigate("PaymentScreen")}
+        onPress={() => navigation.navigate("Payment")}
       />
       <Button
         title="Make a Payment"
-        onPress={() => navigation.navigate("ScanPaymentScreen")}
+        onPress={() => navigation.navigate("ScanPayment")}
+      />
+      <Button
+        title="Card Info"
+        onPress={() => navigation.navigate("CardInfo")}
       />
     </View>
   );

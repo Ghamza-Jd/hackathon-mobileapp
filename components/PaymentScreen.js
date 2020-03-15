@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
-  Text,
   TextInput,
   Button,
   Modal,
+  AsyncStorage,
   Platform
 } from "react-native";
 import QRCode from "./qrcode/QRCode";
@@ -13,13 +13,25 @@ import QRCode from "./qrcode/QRCode";
 export default function PaymentScreen({ navigation }) {
   const [modal, setModal] = useState(false);
   const [paymentValue, setPaymentValue] = useState(0);
+  const [acessToken, setAccessToken] = useState("");
+  const [tokenType, setTokenType] = useState("");
+
+  useEffect(() => {
+    AsyncStorage.getItem("token", (err, res) => {
+      if (!err) setAccessToken(res);
+    });
+
+    AsyncStorage.getItem("type", (err, res) => {
+      if (!err) setTokenType(res);
+    });
+  });
 
   return (
     <View style={styles.container}>
       <Modal visible={modal} animationType="slide">
         <View style={styles.container}>
           <QRCode
-            value="Razazrizo"
+            value={paymentValue}
             size={300}
             bgColor="purple"
             fgColor="white"
@@ -35,7 +47,7 @@ export default function PaymentScreen({ navigation }) {
       <TextInput
         style={styles.input}
         keyboardType={Platform.OS === "android" ? "numeric" : "number-pad"}
-        onKeyPress={e => setPaymentValue(e)}
+        onChangeText={value => setPaymentValue(value)}
         placeholder="$0.00"
       />
       <Button

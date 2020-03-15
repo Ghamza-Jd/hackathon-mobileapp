@@ -15,7 +15,19 @@ export default function ScanPaymentScreen() {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    fetch("https://areeba-hackathon.herokuapp.com/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        data: data
+      })
+    })
+      .then(res => console.log(res))
+      .catch(err => {
+        if (err) throw err;
+      });
   };
 
   if (hasPermission === null) {
